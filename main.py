@@ -23,4 +23,32 @@ def criando_tabela():
             conexao.close()
 
 criando_tabela()
-        
+
+def cadastro_livro(titulo, autor, ano):
+    try:
+        conexao = sqlite3 .connect("biblioteca.db")
+        cursor = conexao.cursor()
+
+        cursor.execute("""
+        INSERT INTO livros (titulo, autor, ano, disponivel)
+        VALUES (?, ?, ?, ?)
+        """,  
+        (titulo, autor, ano, "sim")
+        )
+        conexao.commit()
+    except Exception as erro:
+        #Caso ocorra algum erro no banco
+        print(f"erro ao tentar criar tabela {erro}")
+    finally:
+        #Sempre fechar a conexão
+        if conexao:
+            conexao.close()
+            
+
+
+titulo = input("Digite o titulo que você deseja: ").lower()
+autor = input("Digite o nome do autor: ").lower()
+ano = int(input("Digite o ano do livro: "))
+
+cadastro_livro(titulo,autor, ano )
+
