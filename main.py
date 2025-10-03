@@ -36,19 +36,11 @@ def cadastro_livro(titulo, autor, ano):
         conexao.commit()
     except Exception as erro:
         #Caso ocorra algum erro no banco
-        print(f"erro ao tentar criar tabela {erro}")
+        print(f"erro ao tentar criar cadastro {erro}")
     finally:
         #Sempre fechar a conexão
         if conexao:
             conexao.close()
-            
-
-
-# titulo = input("Digite o titulo que você deseja: ").lower()
-# autor = input("Digite o nome do autor: ").lower()
-# ano = int(input("Digite o ano do livro: "))
-
-# cadastro_livro(titulo,autor, ano )
 
 def listar_livros():
     try:
@@ -68,9 +60,6 @@ def listar_livros():
         #Sempre fechar a conexão
         if conexao:
             conexao.close()
-
-# listar_livros()
-
 
 def atualizar_tabela(disponivel, id_livro):
     try:
@@ -92,11 +81,6 @@ def atualizar_tabela(disponivel, id_livro):
         if conexao:
             conexao.close()
 
-listar_livros()
-disponivel = input("Tem o livro que você deseja? (sim ou não): ")
-id_livro = input("Digite o id do livro que deseja alterar: ")
-atualizar_tabela(disponivel, id_livro)
-
 
 def remover_livros():
     try:
@@ -110,14 +94,40 @@ def remover_livros():
         #Caso ocorra algum erro no banco
         print(f"erro ao tentar remover livros {erro}")
 
-remover_livros()
 
 def menu():
     while True:
-        print("1 - Listar Livros")
-        print("2 - Adicionar livros")
-        print("3 - Atualizar livros")
-        print("4 - Remover livros")
-        print("5 - Sair")
+        print("1. Cadastrar livro")
+        print("2. Listar livros")
+        print("3. Atualizar disponibilidade")
+        print("4. Remover livro")
+        print("5. Sair")
 
+        opcao = input("Escolha uma opção: ")
 
+        if opcao == "1":
+            titulo = input("Título do livro: ")
+            autor = input("Autor do livro: ")
+            ano = input("Ano do livro: ")
+            cadastro_livro(titulo, autor, ano)
+            print("Livro cadastrado com sucesso!")
+
+        elif opcao == "2":
+            listar_livros()
+
+        elif opcao == "3":
+            id_livro = input("Digite o ID do livro para atualizar: ")
+            novo_status = input("Disponível (sim/não): ")
+            atualizar_tabela(novo_status, id_livro)
+            print("Disponibilidade atualizada!")
+        elif opcao == "4":
+            id_livro = input("Digite o ID do livro que deseja remover: ")
+            remover_livro(id_livro)
+
+        elif opcao == "5":
+            print("Saindo do sistema")
+            break
+
+        else:
+            print("Opção inválida. Tente novamente.")
+menu()
