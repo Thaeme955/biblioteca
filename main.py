@@ -96,3 +96,28 @@ listar_livros()
 disponivel = input("Tem o livro que você deseja? (sim ou não): ")
 id_livro = input("Digite o id do livro que deseja alterar: ")
 atualizar_tabela(disponivel, id_livro)
+
+
+def remover_livros():
+    try:
+        conexao = sqlite3 .connect("biblioteca.db")
+        cursor = conexao.cursor()
+        id = int(input("Digite o id do livro que deseja deletar: "))
+        cursor.execute("DELETE FROM livros WHERE id = ?", (id,))
+        conexao.commit()
+        print("Livros removido com sucesso!")
+    except Exception as erro:
+        #Caso ocorra algum erro no banco
+        print(f"erro ao tentar remover livros {erro}")
+
+remover_livros()
+
+def menu():
+    while True:
+        print("1 - Listar Livros")
+        print("2 - Adicionar livros")
+        print("3 - Atualizar livros")
+        print("4 - Remover livros")
+        print("5 - Sair")
+
+
