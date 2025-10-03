@@ -22,8 +22,6 @@ def criando_tabela():
         if conexao:
             conexao.close()
 
-criando_tabela()
-
 def cadastro_livro(titulo, autor, ano):
     try:
         conexao = sqlite3 .connect("biblioteca.db")
@@ -46,11 +44,11 @@ def cadastro_livro(titulo, autor, ano):
             
 
 
-titulo = input("Digite o titulo que você deseja: ").lower()
-autor = input("Digite o nome do autor: ").lower()
-ano = int(input("Digite o ano do livro: "))
+# titulo = input("Digite o titulo que você deseja: ").lower()
+# autor = input("Digite o nome do autor: ").lower()
+# ano = int(input("Digite o ano do livro: "))
 
-cadastro_livro(titulo,autor, ano )
+# cadastro_livro(titulo,autor, ano )
 
 def listar_livros():
     try:
@@ -71,4 +69,30 @@ def listar_livros():
         if conexao:
             conexao.close()
 
+# listar_livros()
+
+
+def atualizar_tabela(disponivel, id_livro):
+    try:
+        conexao = sqlite3 .connect("biblioteca.db")
+        cursor = conexao.cursor()
+        cursor.execute("""
+        UPDATE livros 
+        SET disponivel = ?
+        WHERE id = ?
+        """, (disponivel, id_livro )
+        )
+        conexao.commit()
+
+    except Exception as erro:
+        #Caso ocorra algum erro no banco
+        print(f"erro ao tentar atulizar {erro}")
+    finally:
+        #Sempre fechar a conexão
+        if conexao:
+            conexao.close()
+
 listar_livros()
+disponivel = input("Tem o livro que você deseja? (sim ou não): ")
+id_livro = input("Digite o id do livro que deseja alterar: ")
+atualizar_tabela(disponivel, id_livro)
