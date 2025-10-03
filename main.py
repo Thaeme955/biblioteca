@@ -122,7 +122,7 @@ def menu():
             print("Disponibilidade atualizada!")
         elif opcao == "4":
             id_livro = input("Digite o ID do livro que deseja remover: ")
-            remover_livro(id_livro)
+            remover_livros(id_livro)
 
         elif opcao == "5":
             print("Saindo do sistema")
@@ -130,4 +130,5 @@ def menu():
 
         else:
             print("Opção inválida. Tente novamente.")
+
 menu()
